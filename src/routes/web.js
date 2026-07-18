@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { handleHome, handleUser } from '../controllers/homeController.js';
+import { handleCreateNewUser, handleHome, handleUser } from '../controllers/homeController.js';
 
 const router = express.Router();
 
@@ -13,6 +13,7 @@ const router = express.Router();
 const initWebRoutes = (app) => {
     router.get('/', handleHome);
     router.get('/user', handleUser);
+    router.post('/user/create-user', handleCreateNewUser);
     return app.use('/', router);
 };
 
