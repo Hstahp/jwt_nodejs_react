@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 initWebRoutes(app);
 
 app.listen(PORT, () => {
-    console.log(`>>>Backend Nodejs is running on the port: ${PORT}`);
+    console.log(`>>>Backend Nodejs is running on the port: http://localhost:${PORT}`);
 });
 
 export default app;
