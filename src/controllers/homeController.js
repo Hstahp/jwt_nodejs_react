@@ -14,13 +14,19 @@ const handleUserPage = async (req, res) => {
     return res.render('user.ejs', { userList });
 };
 
-const handleCreateNewUser = (req, res) => {
+const handleCreateNewUser = async (req, res) => {
     let email = req.body.emailName;
     let password = req.body.password;
     let username = req.body.username;
 
-    userService.createNewUser(email, password, username);
-    return res.send('User created successfully');
+    await userService.createNewUser(email, password, username);
+    return res.redirect('/user');
 };
 
-export { handleHome, handleUser, handleCreateNewUser, handleUserPage };
+const handleDeleteUser = async (req, res) => {
+    let userId = req.params.id;
+    await userService.deleteUser(userId);
+    return res.redirect('/user');
+};
+
+export { handleHome, handleUser, handleCreateNewUser, handleUserPage, handleDeleteUser };

@@ -9,24 +9,27 @@ const hashUserPassword = (userPassword) => {
     return hashPassword;
 };
 
-const createNewUser = (email, password, username) => {
+const createNewUser = async (email, password, username) => {
     let hashPassword = hashUserPassword(password);
-
-    connection.query(
-        ' INSERT INTO users (email, password, username) VALUES (?,?,?)',
-        [email, hashPassword, username],
-        function (err, results, fields) {
-            if (err) {
-                console.log(err);
-                return res.status(500).send('Error creating user');
-            }
-            return res.send('User created successfully');
-        },
-    );
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        port: process.env.PORT_DB,
+        user: 'root',
+        database: 'jwt',
+        Promise: bluebird,
+    });
+    try {
+        const [rows, fields] = await connection.execute(
+            ' INSERT INTO users (email, password, username) VALUES (?,?,?)',
+            [email, hashPassword, username],
+        );
+        return rows;
+    } catch (e) {
+        console.log('>>Check error: ', e);
+    }
 };
 
 const getUserList = async () => {
-    let users = [];
     //create the connection to database
     const connection = await mysql.createConnection({
         host: 'localhost',
@@ -35,24 +38,35 @@ const getUserList = async () => {
         database: 'jwt',
         Promise: bluebird,
     });
-    // connection.query('SELECT * FROM users', function (err, results, fields) {
-    //     if (err) {
-    //         console.log(err);
-    //         return users;
-    //     }
-    //     users = results;
-    //     return users;
-    // });
 
     try {
         const [rows, fields] = await connection.execute('SELECT * FROM users');
         return rows;
     } catch (e) {
-        console.log(e);
+        console.log('>>Check error: ', e);
+    }
+};
+
+const deleteUser = async (id) => {
+    //create the connection to database
+    const connection = await mysql.createConnection({
+        host: 'localhost',
+        port: process.env.PORT_DB,
+        user: 'root',
+        database: 'jwt',
+        Promise: bluebird,
+    });
+
+    try {
+        const [rows, fields] = await connection.execute('DELETE FROM users WHERE id = ?', [id]);
+        return rows;
+    } catch (e) {
+        console.log('>>Check error: ', e);
     }
 };
 
 module.exports = {
     createNewUser,
     getUserList,
+    deleteUser,
 };
