@@ -20,7 +20,7 @@ const createNewUser = async (email, password, username) => {
     });
     try {
         const [rows, fields] = await connection.execute(
-            ' INSERT INTO users (email, password, username) VALUES (?,?,?)',
+            ' INSERT INTO user (email, password, username) VALUES (?,?,?)',
             [email, hashPassword, username],
         );
         return rows;
@@ -40,7 +40,7 @@ const getUserList = async () => {
     });
 
     try {
-        const [rows, fields] = await connection.execute('SELECT * FROM users');
+        const [rows, fields] = await connection.execute('SELECT * FROM user');
         return rows;
     } catch (e) {
         console.log('>>Check error: ', e);
@@ -58,7 +58,7 @@ const deleteUser = async (id) => {
     });
 
     try {
-        const [rows, fields] = await connection.execute('DELETE FROM users WHERE id = ?', [id]);
+        const [rows, fields] = await connection.execute('DELETE FROM user WHERE id = ?', [id]);
         return rows;
     } catch (e) {
         console.log('>>Check error: ', e);
@@ -76,7 +76,7 @@ const getUserById = async (id) => {
     });
 
     try {
-        const [rows, fields] = await connection.execute('SELECT * FROM users WHERE id = ?', [id]);
+        const [rows, fields] = await connection.execute('SELECT * FROM user WHERE id = ?', [id]);
         return rows;
     } catch (e) {
         console.log('>>Check error: ', e);
@@ -94,7 +94,7 @@ const updateUserInfor = async (username, email, id) => {
     });
 
     try {
-        const [rows, fields] = await connection.execute('UPDATE users SET username = ? , email = ? WHERE id =?  ', [
+        const [rows, fields] = await connection.execute('UPDATE user SET username = ? , email = ? WHERE id =?  ', [
             username,
             email,
             id,
