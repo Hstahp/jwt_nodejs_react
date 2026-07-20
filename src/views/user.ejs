@@ -52,8 +52,8 @@
                                 <th scope="row">
                                     <%= item.id %>
                                 </th>
-                                <td><%= item.username %></td>
                                 <td><%= item.email %></td>
+                                <td><%= item.username %></td>
                                 <td>
                                    <form style="display: inline;" action="/update-user/<%=item.id%>" method="GET"> <button type="submit" class="btn btn-warning">Edit</button></form>
                                    <form style="display: inline;" action="/delete-user/<%=item.id%>" method="POST"> <button type="submit" class="btn btn-danger">Delete</button></form>

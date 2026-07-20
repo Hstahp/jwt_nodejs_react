@@ -16,18 +16,18 @@ module.exports = {
             'User',
             [
                 {
-                    username: 'john@doe',
-                    email: 'John Doe',
+                    email: 'john@doe',
+                    username: 'John Doe',
                     password: 'fake1',
                 },
                 {
-                    username: 'john2@doe',
-                    email: 'John Doe2',
+                    email: 'john2@doe',
+                    username: 'John Doe2',
                     password: 'fake2',
                 },
                 {
-                    username: 'john3@doe',
-                    email: 'John Doe3',
+                    email: 'john3@doe',
+                    username: 'John Doe3',
                     password: 'fake3',
                 },
             ],
