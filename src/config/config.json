@@ -8,8 +8,7 @@
         "dialect": "mysql",
         "define": {
             "freezeTableName": true
-        },
-        "logging": false
+        }
     },
     "test": {
         "username": "root",
