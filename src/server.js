@@ -7,6 +7,7 @@ import initAPIRoutes from './routes/api';
 import bodyParser from 'body-parser';
 
 import configCors from './config/cors';
+import cookieParser from 'cookie-parser';
 // import connection from './config/connectDB';
 
 require('dotenv').config();
@@ -22,6 +23,9 @@ configViewEngine(app);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//config cookie parser
+app.use(cookieParser());
+
 //test connection db
 // connection();
 
@@ -29,6 +33,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 initWebRoutes(app);
 //init api routes
 initAPIRoutes(app);
+
+app.use((req, res) => {
+    return res.send('404 not found');
+});
 
 app.listen(PORT, () => {
     console.log(`>>>Backend Nodejs is running on the port: http://localhost:${PORT}`);
