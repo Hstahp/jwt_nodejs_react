@@ -8,6 +8,7 @@ import bodyParser from 'body-parser';
 
 import configCors from './config/cors';
 // import connection from './config/connectDB';
+
 require('dotenv').config();
 
 const app = express();
