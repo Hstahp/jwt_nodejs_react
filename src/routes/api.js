@@ -4,6 +4,8 @@ import apiController from '../controllers/apiController';
 import userController from '../controllers/userController';
 import groupController from '../controllers/groupController';
 import { checkUserJWT, checkUserPermission } from '../middleware/JWTAction';
+import roleController from '../controllers/roleController';
+
 const router = express.Router();
 
 /**
@@ -20,11 +22,19 @@ const initAPIRoutes = (app) => {
     router.post('/logout', apiController.handleLogout);
     router.get('/account', userController.getUserAccount);
 
+    //User routes
     router.get('/user/read', userController.readFunc);
     router.post('/user/create', userController.createFunc);
     router.put('/user/update', userController.updateFunc);
     router.delete('/user/delete', userController.deleteFunc);
 
+    //Role routes
+    router.get('/role/read', roleController.readFunc);
+    router.post('/role/create', roleController.createFunc);
+    router.put('/role/update', roleController.updateFunc);
+    router.delete('/role/delete', roleController.deleteFunc);
+
+    //Group routes
     router.get('/group/read', groupController.readFunc);
     return app.use('/api/v1', router);
 };
