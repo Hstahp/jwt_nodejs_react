@@ -1,20 +1,45 @@
 import express from 'express';
 
-import configViewEngine from './configs/viewEngine';
+import configViewEngine from './config/viewEngine';
 import initWebRoutes from './routes/web';
+import initAPIRoutes from './routes/api';
+
+import bodyParser from 'body-parser';
+
+import configCors from './config/cors';
+import cookieParser from 'cookie-parser';
+// import connection from './config/connectDB';
+
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT;
 
+configCors(app);
 //config view engine
 configViewEngine(app);
 
+//config body-parser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//config cookie parser
+app.use(cookieParser());
+
+//test connection db
+// connection();
+
 //init web routes
 initWebRoutes(app);
+//init api routes
+initAPIRoutes(app);
+
+app.use((req, res) => {
+    return res.send('404 not found');
+});
 
 app.listen(PORT, () => {
-    console.log(`>>>Backend Nodejs is running on the port: ${PORT}`);
+    console.log(`>>>Backend Nodejs is running on the port: http://localhost:${PORT}`);
 });
 
 export default app;
